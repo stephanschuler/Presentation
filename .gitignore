@@ -1,5 +1,7 @@
 /vendor/
 /composer.lock
+/Resources/Private/App/src/components.d.ts
+/Resources/Public/App
 **/node_modules/
 **/npm-debug.log
 **/package-lock.json
