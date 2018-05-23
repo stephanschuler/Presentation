@@ -7,6 +7,11 @@ exports.config = {
             dir: '../../Public/Scripts',
             buildDir: '.'
         }
+    ],
+    bundles: [
+        {
+            components: ['presentation-container', 'presentation-slide']
+        }
     ]
 };
 
