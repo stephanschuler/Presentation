@@ -18,7 +18,17 @@ export class PresentationSlide {
     readonly tabindex!: number;
 
     componentDidLoad() {
+        this.parentReady.then((value) => {
+            value.registerSlide(this);
+        });
+
         this.applySettingsFromImages();
+    }
+
+    componentDidUnload() {
+        this.parentReady.then((value) => {
+            value.unregisterSlide(this);
+        });
     }
 
     hostData() {
@@ -50,5 +60,9 @@ export class PresentationSlide {
             columns.setAttribute('style', style);
         });
 
+    }
+
+    protected get parentReady() {
+        return this.el.closest('presentation-container').componentOnReady();
     }
 }
