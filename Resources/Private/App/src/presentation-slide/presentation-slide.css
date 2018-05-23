@@ -1,0 +1,13 @@
+:host {
+    display: none;
+    position: absolute;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+:host([active]) {
+    display: block;
+}
