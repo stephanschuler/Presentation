@@ -4,7 +4,7 @@ exports.config = {
         {
             type: 'www',
             serviceWorker: false,
-            dir: '../../Public/Scripts',
+            dir: '../../Public/App',
             buildDir: '.'
         }
     ],
