@@ -1,0 +1,7 @@
+
+img[alt="background"],
+img[alt="column-background"],
+code[class^="language-slide-"] {
+    display: none;
+
+}

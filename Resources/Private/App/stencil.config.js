@@ -12,6 +12,9 @@ exports.config = {
         {
             components: ['presentation-container', 'presentation-slide']
         }
+    ],
+    globalStyle: [
+        'src/globals/default.css'
     ]
 };
 
