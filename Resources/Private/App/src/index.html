@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
+    <title>Some Presentation</title>
+    <script type="text/javascript" src="/presentation.js"></script>
+    <link type="text/css" rel="stylesheet" href="/presentation.css">
+    <style type="text/css">
+        h1 {
+            background-color: grey;
+        }
+
+        p, h1, h2, h3 {
+            margin: 0;
+            margin-bottom: 10px;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        article, section, presentation-slide {
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        article {
+            display: flex;
+            flex: 0 1 auto;
+            flex-direction: row;
+            top: 50%;
+            position: relative;
+            transform: translate(0, -50%);
+            padding-bottom: 150px;
+        }
+
+        section {
+            flex-grow: 1;
+            flex-basis: 0;
+        }
+
+        presentation-container {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+        presentation-container[loading] * {
+            display: none;
+        }
+    </style>
+
+</head>
+<body>
+
+<!-- slot -->
+
+</body>
+</html>
