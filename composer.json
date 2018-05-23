@@ -1,0 +1,21 @@
+{
+    "name": "stephanschuler/presentation",
+    "description": "",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Stephan Schuler",
+            "email": "stephan.schuler@netlogix.de"
+        }
+    ],
+    "require": {
+        "php": "~7.0",
+        "erusev/parsedown": "^1.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "StephanSchuler\\Presentation\\": "src"
+        }
+    }
+}
