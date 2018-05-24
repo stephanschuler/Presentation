@@ -19,35 +19,56 @@ export class PresentationContainer {
 
     protected mousemoveTimeout;
 
+    protected currentOffset: number = 0;
+
+    protected steps: number = 0;
+
     componentDidLoad() {
         this.loading = false;
     }
 
     @Method()
     registerSlide(slide: PresentationSlide) {
+        if (slide.steps <= 0) {
+            return;
+        }
         this.slides.push(slide);
         this.slides = this.slides.sort((a, b) => {
             return a.tabindex > b.tabindex ? 1 : -1;
         });
+        this.steps = this.slides
+            .map(slide => slide.steps)
+            .reduce((value, item) => value + item, 0);
+        this.callSlide(0);
     }
 
     @Method()
     unregisterSlide(delinquent: PresentationSlide) {
         this.slides = this.slides.filter(slide => slide !== delinquent);
+        this.steps = this.slides
+            .map(slide => slide.steps)
+            .reduce((value, item) => value + item, 0);
+        this.callSlide(0);
     }
 
     @Listen('body:keydown.right')
     @Listen('body:keydown.down')
     nextSlide(ev: KeyboardEvent) {
         ev.preventDefault();
-        this.currentOffset += 1;
+        if (this.currentOffset < this.steps - 1) {
+            this.currentOffset++;
+            this.callSlide(this.currentOffset);
+        }
     }
 
     @Listen('body:keydown.left')
     @Listen('body:keydown.up')
     previousSlide(ev: KeyboardEvent) {
         ev.preventDefault();
-        this.currentOffset -= 1;
+        if (this.currentOffset > 0) {
+            this.currentOffset--;
+            this.callSlide(this.currentOffset);
+        }
     }
 
     @Listen('body:mousemove')
@@ -59,23 +80,18 @@ export class PresentationContainer {
         }, 5000);
     }
 
-    get currentOffset() {
-        return this.slides.indexOf(this.activeSlide);
-    }
-
-    set currentOffset(nextOffset: number) {
-        if (nextOffset >= 0 && nextOffset < this.slides.length) {
-            if (this.activeSlide) {
-                this.activeSlide.active = false;
+    protected callSlide(newStep: number) {
+        let indexFrom = 0;
+        this.slides.forEach(slide => {
+            const size = slide.steps;
+            const indexTo = indexFrom + size - 1;
+            slide.active = (newStep >= indexFrom && newStep <= indexTo);
+            if (slide.active) {
+                slide.currentOffset = newStep - indexFrom;
             }
-            this.slides[nextOffset].active = true;
-        }
+            indexFrom += size;
+        })
     }
-
-    get activeSlide(): PresentationSlide {
-        const active = this.slides.filter(slide => slide.active);
-        return active.length === 0 ? null : active[0];
-    };
 
     render() {
         return <slot/>;

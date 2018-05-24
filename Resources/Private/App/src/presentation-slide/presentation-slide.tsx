@@ -14,6 +14,10 @@ export class PresentationSlide {
     @State()
     active: boolean = false;
 
+    @Prop({mutable: true, reflectToAttr: true})
+    @State()
+    currentOffset: number = 0;
+
     @Prop()
     readonly tabindex!: number;
 
@@ -32,16 +36,21 @@ export class PresentationSlide {
     }
 
     hostData() {
+        let classNames = [];
+        classNames['active'] = this.active;
+        classNames['inactive'] = !this.active;
+        classNames['step-' + this.currentOffset] = this.active;
         return {
-            'class': {
-                'active': this.active,
-                'inactive': !this.active
-            }
+            'class': classNames
         };
     }
 
     render() {
         return <slot/>;
+    }
+
+    get steps(): number {
+        return 1;
     }
 
     protected applySettingsFromImages() {
