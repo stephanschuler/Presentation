@@ -36,10 +36,12 @@ export class PresentationSlide {
     }
 
     hostData() {
+        const step = this.currentOffset + 1;
         let classNames = [];
         classNames['active'] = this.active;
         classNames['inactive'] = !this.active;
-        classNames['step-' + this.currentOffset] = this.active;
+        classNames['step-' + step] = this.active;
+        classNames['of-' + this.steps] = this.active;
         return {
             'class': classNames
         };
@@ -50,7 +52,8 @@ export class PresentationSlide {
     }
 
     get steps(): number {
-        return 1;
+        const lis = this.el.querySelectorAll('li').length;
+        return lis ? lis : 1;
     }
 
     protected applySettingsFromImages() {

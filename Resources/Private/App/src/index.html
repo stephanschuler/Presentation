@@ -24,6 +24,46 @@
             background-color: white;
         }
 
+        /* multi step slides */
+
+        presentation-slide[active].of-3 li {
+            visibility: hidden;
+        }
+
+        /**
+            @for $maxNumberOfSteps from 1 through 4 {
+              @for $i from 1 through $maxNumberOfSteps {
+                @for $j from 1 through $i {
+                   presentation-slide[active].step-#{$i}.of-#{$maxNumberOfSteps} li:nth-of-type(#{$j}) {
+                    visibility: visible;
+                  }
+                }
+              }
+            }
+         */
+
+        presentation-slide[active].step-1.of-1 li:nth-of-type(1) { visibility: visible; }
+        presentation-slide[active].step-1.of-2 li:nth-of-type(1) { visibility: visible; }
+        presentation-slide[active].step-2.of-2 li:nth-of-type(1) { visibility: visible; }
+        presentation-slide[active].step-2.of-2 li:nth-of-type(2) { visibility: visible; }
+        presentation-slide[active].step-1.of-3 li:nth-of-type(1) { visibility: visible; }
+        presentation-slide[active].step-2.of-3 li:nth-of-type(1) { visibility: visible; }
+        presentation-slide[active].step-2.of-3 li:nth-of-type(2) { visibility: visible; }
+        presentation-slide[active].step-3.of-3 li:nth-of-type(1) { visibility: visible; }
+        presentation-slide[active].step-3.of-3 li:nth-of-type(2) { visibility: visible; }
+        presentation-slide[active].step-3.of-3 li:nth-of-type(3) { visibility: visible; }
+        presentation-slide[active].step-1.of-4 li:nth-of-type(1) { visibility: visible; }
+        presentation-slide[active].step-2.of-4 li:nth-of-type(1) { visibility: visible; }
+        presentation-slide[active].step-2.of-4 li:nth-of-type(2) { visibility: visible; }
+        presentation-slide[active].step-3.of-4 li:nth-of-type(1) { visibility: visible; }
+        presentation-slide[active].step-3.of-4 li:nth-of-type(2) { visibility: visible; }
+        presentation-slide[active].step-3.of-4 li:nth-of-type(3) { visibility: visible; }
+        presentation-slide[active].step-4.of-4 li:nth-of-type(1) { visibility: visible; }
+        presentation-slide[active].step-4.of-4 li:nth-of-type(2) { visibility: visible; }
+        presentation-slide[active].step-4.of-4 li:nth-of-type(3) { visibility: visible; }
+        presentation-slide[active].step-4.of-4 li:nth-of-type(4) { visibility: visible; }
+
+
         /* images */
 
         img {
