@@ -14,6 +14,11 @@ export class PresentationContainer {
     @Prop({mutable: true, reflectToAttr: true})
     protected loading: boolean = true;
 
+    @Prop({mutable: true, reflectToAttr: true})
+    protected mousemove: boolean = false;
+
+    protected mousemoveTimeout;
+
     componentDidLoad() {
         this.loading = false;
     }
@@ -43,6 +48,15 @@ export class PresentationContainer {
     previousSlide(ev: KeyboardEvent) {
         ev.preventDefault();
         this.currentOffset -= 1;
+    }
+
+    @Listen('body:mousemove')
+    registerMouseMove() {
+        this.mousemove = true;
+        clearTimeout(this.mousemoveTimeout);
+        this.mousemoveTimeout = setTimeout(() => {
+            this.mousemove = false;
+        }, 5000);
     }
 
     get currentOffset() {
