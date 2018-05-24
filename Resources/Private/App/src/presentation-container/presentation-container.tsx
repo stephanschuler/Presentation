@@ -35,27 +35,27 @@ export class PresentationContainer {
     @Listen('body:keydown.down')
     nextSlide(ev: KeyboardEvent) {
         ev.preventDefault();
-        this.activateOffset(this.currentOffset + 1);
+        this.currentOffset += 1;
     }
 
     @Listen('body:keydown.left')
     @Listen('body:keydown.up')
     previousSlide(ev: KeyboardEvent) {
         ev.preventDefault();
-        this.activateOffset(this.currentOffset - 1);
+        this.currentOffset -= 1;
     }
 
-    protected activateOffset(nextOffset: number) {
+    get currentOffset() {
+        return this.slides.indexOf(this.activeSlide);
+    }
+
+    set currentOffset(nextOffset: number) {
         if (nextOffset >= 0 && nextOffset < this.slides.length) {
             if (this.activeSlide) {
                 this.activeSlide.active = false;
             }
             this.slides[nextOffset].active = true;
         }
-    }
-
-    get currentOffset() {
-        return this.slides.indexOf(this.activeSlide);
     }
 
     get activeSlide(): PresentationSlide {
