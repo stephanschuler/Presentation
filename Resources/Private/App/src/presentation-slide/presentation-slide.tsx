@@ -57,19 +57,20 @@ export class PresentationSlide {
     }
 
     protected applySettingsFromImages() {
-
-        Array.from(this.el.querySelectorAll('img[src][alt="background"]')).forEach(img => {
-            const columns = this.el;
-            let style = columns.hasAttribute('style') ? columns.getAttribute('style') : '';
-            style += 'background-image: url(' + img.getAttribute('src') + ');';
-            columns.setAttribute('style', style);
-        });
-
-        Array.from(this.el.querySelectorAll('img[src][alt="column-background"]')).forEach(img => {
-            const columns = img.closest('section');
-            let style = columns.hasAttribute('style') ? columns.getAttribute('style') : '';
-            style += 'background-image: url(' + img.getAttribute('src') + ');';
-            columns.setAttribute('style', style);
+        const mappings = [{
+            fromSelector: 'img[src][alt="background"]',
+            toContainer: 'presentation-slide'
+        }, {
+            fromSelector: 'img[src][alt="column-background"]',
+            toContainer: 'section'
+        }];
+        mappings.forEach(mapping => {
+            Array.from(this.el.querySelectorAll(mapping.fromSelector)).forEach(img => {
+                const container = img.closest(mapping.toContainer);
+                let style = container.hasAttribute('style') ? container.getAttribute('style') : '';
+                style += 'background-image: url(' + img.getAttribute('src') + ');';
+                container.setAttribute('style', style);
+            });
         });
 
     }
