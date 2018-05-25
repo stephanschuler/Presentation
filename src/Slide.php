@@ -7,6 +7,7 @@ use StephanSchuler\Presentation\Processing\Pipe;
 use StephanSchuler\Presentation\Processing\Steps\InlineImageSourcesStep;
 use StephanSchuler\Presentation\Processing\Steps\LoadFileStep;
 use StephanSchuler\Presentation\Processing\Steps\ParseMarkdownStep;
+use StephanSchuler\Presentation\Processing\Steps\ReplaceMagicNumbersStep;
 use StephanSchuler\Presentation\Processing\Steps\SplitColumnsStep;
 
 class Slide
@@ -24,7 +25,8 @@ class Slide
             new LoadFileStep($fileInfo),
             new ParseMarkdownStep($parser),
             new InlineImageSourcesStep($fileInfo, $dataDirectory),
-            new SplitColumnsStep()
+            new SplitColumnsStep(),
+            new ReplaceMagicNumbersStep(),
         ];
     }
 

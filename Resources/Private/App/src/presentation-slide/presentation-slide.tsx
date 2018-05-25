@@ -1,4 +1,5 @@
-import { Component, Element, Prop, State } from '@stencil/core';
+import { Component, Element, Method, Prop, State, Watch } from '@stencil/core';
+import { PresentationFragment } from '../presentation-fragment/presentation-fragment';
 
 @Component({
     tag: 'presentation-slide',
@@ -20,6 +21,10 @@ export class PresentationSlide {
 
     @Prop()
     readonly tabindex!: number;
+
+    protected fragment: PresentationFragment[] = [];
+
+    steps: number = 1;
 
     componentDidLoad() {
         this.parentReady.then((value) => {
@@ -47,13 +52,30 @@ export class PresentationSlide {
         };
     }
 
-    render() {
-        return <slot/>;
+    @Watch('currentOffset')
+    watchCurrentOffset(currentOffset: number) {
+        this.fragment.forEach((fragment, offset) => {
+            fragment.active = (currentOffset > offset);
+        });
     }
 
-    get steps(): number {
-        const lis = this.el.querySelectorAll('li').length;
-        return lis ? lis : 1;
+    @Method()
+    registerFragment(fragment: PresentationFragment) {
+        this.fragment.push(fragment);
+        this.fragment = this.fragment.sort((a, b) => {
+            return a.tabindex > b.tabindex ? 1 : -1;
+        });
+        this.steps = this.fragment.length + 1;
+    }
+
+    @Method()
+    unregisterFragment(delinquent: PresentationFragment) {
+        this.fragment = this.fragment.filter(fragment => fragment !== delinquent);
+        this.steps = this.fragment.length + 1;
+    }
+
+    render() {
+        return <slot/>;
     }
 
     protected applySettingsFromImages() {
